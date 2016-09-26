@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title ng-init="title='Cars Leasing'" ng-bind="title"></title>
+
+    <!--Favicon-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+</head>
+<body ng-app="app">
+<div class="container" ng-controller="CarController">
+    Cars list
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Marque</th>
+            <th>Model</th>
+            <th>Description</th>
+            </tr>
+        </tr>
+        <tr ng-repeat="car in cars">
+        <td ng-bind="car.id"></td>
+        <td ng-bind="car.name"></td>
+        <td ng-bind="car.marque"></td>
+        <td ng-bind="car.model"></td>
+        <td ng-bind="car.description"></td>
+        </tr>
+    </table>
+    <ul>
+
+    </ul>
+</div>
+
+<script>
+    function CarController($scope, $http) {
+        $scope.cars = [];
+
+        $http.get('http://127.0.0.1:8000/cars').then(function(response){
+            $scope.cars = response.data.cars;
+        });
+    }
+
+    var app = angular.module('app', []);
+
+    app.controller('CarController', CarController);
+</script>
+</body>
+</html>
